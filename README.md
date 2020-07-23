@@ -6,8 +6,10 @@ routing in mind.
 - You can choose a specific branch to allow deployment by using the `TARGET_BRANCH` env var (`master` if not specified).
 - Make sure you have the `firebase.json` file in the respective subdirectory. Use `.` for `FIREBASE_PROJECT_PATH` env
 variable if you don't need to use subdirectories.
-- Get the Firebase token by running `firebase login:ci` and [store it](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) as the `FIREBASE_TOKEN` secret
-- Set the project name in the `FIREBASE_PROJECT` env var
+- Get the Firebase token by running `firebase login:ci` and
+[store it](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+as the `FIREBASE_TOKEN` secret.
+- Set the project name in the `FIREBASE_PROJECT` env var.
 
 ## Sub-directory support
 The original repository is awesome, but it didn't support having subfolders.
@@ -55,8 +57,9 @@ enable that api. You just need to click on the enable button if you have permiss
 enabled.
 
 #### Cloud Run Service doesn't exist in this region in this project
-The Cloud Run service needs to exist in the same project as the firebase hosting rules. So just make sure you redeploy
-your Cloud Run service to the appropriate project using the `--region ${REGION}` flag when you run `gcloud run deploy`.
+The Cloud Run service needs to exist in the same project as the firebase hosting rules. Rule of thumb is one project
+per subdomain. So just make sure you redeploy your Cloud Run service to the appropriate project using the
+`--region ${REGION}` flag when you run `gcloud run deploy`.
 
 ## Example Workflow
 This is an example for a firebase hosting project that is purely a router for Cloud Run.
