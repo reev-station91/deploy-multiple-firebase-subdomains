@@ -1,14 +1,16 @@
 # Deploy to Firebase
 
-A GitHub Action to deploy to Firebase Hosting
+A GitHub Action to deploy to Firebase Hosting. I have designed this fork specifically with Cloud Run and subdomain
+routing in mind.
 
 - You can choose a specific branch to allow deployment by using the `TARGET_BRANCH` env var (`master` if not specified).
-- Make sure you have the `firebase.json` file in the repository
+- Make sure you have the `firebase.json` file in the respective subdirectory. Use `.` for `FIREBASE_PROJECT_PATH` env
+variable if you don't need to use subdirectories.
 - Get the Firebase token by running `firebase login:ci` and [store it](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) as the `FIREBASE_TOKEN` secret
 - Set the project name in the `FIREBASE_PROJECT` env var
 
 ## Sub-directory support
-The original repository didn't support having subfolders.
+The original repository is awesome, but it didn't support having subfolders.
 
 Use `$FIREBASE_PROJECT_PATH` environment variable to configure path to firebase project directory. The action will go
 into the `$FIREBASE_PROJECT_PATH` before executing `firebase deploy`.
