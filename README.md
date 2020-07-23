@@ -43,6 +43,21 @@ like to deploy the hosting rules to.
 This will deploy only the relevant hosting rules to that project and if you've configured one subdomain per project,
 that will work out well 😁
 
+## Getting your Firebase Project ID
+Visit the [projects page](https://console.firebase.google.com/u/0/project/) and then underneath the project name in the
+project card, you should see the project id.
+
+## Common Errors
+### Cloud Run
+#### Google Cloud API Not Enabled
+The Cloud Run Admin API needs to be enabled. Just go to the link in the build output. It will bring you to a page to
+enable that api. You just need to click on the enable button if you have permissions to do so. It requires billing to be
+enabled.
+
+#### Cloud Run Service doesn't exist in this region in this project
+The Cloud Run service needs to exist in the same project as the firebase hosting rules. So just make sure you redeploy
+your Cloud Run service to the appropriate project using the `--region ${REGION}` flag when you run `gcloud run deploy`.
+
 ## Example Workflow
 This is an example for a firebase hosting project that is purely a router for Cloud Run.
 
@@ -104,7 +119,7 @@ jobs:
       uses: lowply/deploy-firebase@v0.0.3
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: <GCP_PROJECT_ID_A>
+        FIREBASE_PROJECT: <FIREBASE_PROJECT_ID>
         TARGET_BRANCH: main
         FIREBASE_PROJECT_PATH: api
 ```
