@@ -31,6 +31,18 @@ you could have a subdirectory for every subdomain.
 |   |   |-- firebase.json
 ```
 
+## Setting up your subdomains
+1. To setup routing rules **independent of each subdomain**, you will need to create a new project in Google Cloud
+Platform (GCP) or Firebase.
+2. Go to `https://console.firebase.google.com/u/0/project/<GCP_PROJECT_ID_A>/hosting/main`.
+3. Under the `<GCP_PROJECT_ID_A> domains` section, click `Add custom domain`.
+4. Follow the steps to add your custom domain.
+5. Then configure the `FIREBASE_PROJECT` environment variable in your workflow to point to the relevant project you would
+like to deploy the hosting rules to.
+
+This will deploy only the relevant hosting rules to that project and if you've configured one subdomain per project,
+that will work out well 😁
+
 ## Example Workflow
 This is an example for a firebase hosting project that is purely a router for Cloud Run.
 
@@ -92,7 +104,7 @@ jobs:
       uses: lowply/deploy-firebase@v0.0.3
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: <GCP_PROJECT_ID>
+        FIREBASE_PROJECT: <GCP_PROJECT_ID_A>
         TARGET_BRANCH: main
         FIREBASE_PROJECT_PATH: api
 ```
@@ -118,7 +130,7 @@ jobs:
       uses: lowply/deploy-firebase@v0.0.3
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: <GCP_PROJECT_ID>
+        FIREBASE_PROJECT: <GCP_PROJECT_ID_B>
         TARGET_BRANCH: main
         FIREBASE_PROJECT_PATH: www
 ```
@@ -144,7 +156,7 @@ jobs:
       uses: lowply/deploy-firebase@v0.0.3
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: <GCP_PROJECT_ID>
+        FIREBASE_PROJECT: <GCP_PROJECT_ID_C>
         TARGET_BRANCH: main
         FIREBASE_PROJECT_PATH: store
 ```
