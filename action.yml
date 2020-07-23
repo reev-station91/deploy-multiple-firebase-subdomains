@@ -1,4 +1,4 @@
-name: 'Deploy to Firebase'
+name: 'Deploy Multiple Subdomains to Firebase'
 author: 'Sho Mizutani <lowply@github.com>'
 description: 'A GitHub Action to deploy to Firebase Hosting'
 runs:
