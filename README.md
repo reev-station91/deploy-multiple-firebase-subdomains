@@ -7,7 +7,13 @@ A GitHub Action to deploy to Firebase Hosting
 - Get the Firebase token by running `firebase login:ci` and [store it](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) as the `FIREBASE_TOKEN` secret
 - Set the project name in the `FIREBASE_PROJECT` env var
 
-Example workflow
+## Sub-directory support
+The original repository didn't support having subfolders.
+
+Use `$FIREBASE_PROJECT_PATH` environment variable to configure path to firebase project directory. The action will go
+into the `$FIREBASE_PROJECT_PATH` before executing `firebase deploy`.
+
+## Example Workflow
 
 ```
 name: Build and Deploy
@@ -30,4 +36,5 @@ jobs:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         FIREBASE_PROJECT: name-of-the-project
         TARGET_BRANCH: main
+        FIREBASE_PROJECT_PATH: api
 ```

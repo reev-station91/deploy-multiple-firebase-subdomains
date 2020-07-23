@@ -20,6 +20,9 @@ if [ "${GITHUB_REF}" != "refs/heads/${TARGET_BRANCH}" ]; then
     exit 1
 fi
 
+# Go to path with firebase configuration
+cd $FIREBASE_PROJECT_PATH
+
 firebase deploy \
     -m "${GITHUB_SHA}" \
     --project ${FIREBASE_PROJECT} \
