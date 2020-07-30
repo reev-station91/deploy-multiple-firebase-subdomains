@@ -1,6 +1,6 @@
 name: 'Deploy Multiple Subdomains/Projects to Firebase'
 author: 'Clement Oh <clement.oh094@gmail.com>'
-description: 'A GitHub Action to deploy to Firebase Hosting'
+description: 'A GitHub Action to deploy multiple subdomains to Firebase Hosting'
 runs:
   using: 'docker'
   image: 'Dockerfile'

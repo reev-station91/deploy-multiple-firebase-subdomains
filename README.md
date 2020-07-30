@@ -1,4 +1,4 @@
-# Deploy to Firebase
+# Deploy Multiple Subdomains to Firebase
 
 A GitHub Action to deploy to Firebase Hosting. I have designed this fork specifically with Cloud Run and subdomain
 routing in mind.
@@ -11,7 +11,7 @@ variable if you don't need to use subdirectories.
 as the `FIREBASE_TOKEN` secret.
 - Set the project name in the `FIREBASE_PROJECT` env var.
 
-## Sub-directory support
+## Sub-directory/Subdomain support
 The original repository is awesome, but it didn't support having subfolders.
 
 Use `$FIREBASE_PROJECT_PATH` environment variable to configure path to firebase project directory. The action will go
@@ -123,37 +123,12 @@ jobs:
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         FIREBASE_PROJECT: <FIREBASE_PROJECT_ID>
-        TARGET_BRANCH: main
+        TARGET_BRANCH: master
         FIREBASE_PROJECT_PATH: api
 ```
 
-**.github/workflows/deploy-www.yml**
-```yaml
-name: Build and Deploy Marketing Site
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - .github/workflows/deploy-api.yml
-      - www/**
-jobs:
-  api:
-    name: Build and Deploy Api
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: Deploy to Firebase
-      uses: lowply/deploy-firebase@v0.0.3
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: <GCP_PROJECT_ID_B>
-        TARGET_BRANCH: main
-        FIREBASE_PROJECT_PATH: www
-```
-
-**.github/workflows/deploy-store.yml**
+If you want to combine them into a single workflow you can do that as well. **.github/workflows/deploy.yml**
+The jobs will still run in parallel to make things quicker.
 ```yaml
 name: Build and Deploy Merch Store
 on:
@@ -164,7 +139,7 @@ on:
       - .github/workflows/deploy-api.yml
       - store/**
 jobs:
-  api:
+  store:
     name: Build and Deploy Api
     runs-on: ubuntu-latest
     steps:
@@ -175,6 +150,19 @@ jobs:
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         FIREBASE_PROJECT: <GCP_PROJECT_ID_C>
-        TARGET_BRANCH: main
+        TARGET_BRANCH: master
         FIREBASE_PROJECT_PATH: store
+  www:
+    name: Build and Deploy Api
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: Deploy to Firebase
+      uses: lowply/deploy-firebase@v0.0.3
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        FIREBASE_PROJECT: <GCP_PROJECT_ID_B>
+        TARGET_BRANCH: master
+        FIREBASE_PROJECT_PATH: www
 ```
