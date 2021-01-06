@@ -21,6 +21,8 @@ if [ "${GITHUB_REF}" != "refs/heads/${TARGET_BRANCH}" ]; then
 fi
 
 # Go to path with firebase configuration
+ls 
+
 cd $FIREBASE_PROJECT_PATH
 
 firebase deploy \
