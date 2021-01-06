@@ -30,4 +30,4 @@ cd ./api/api-server
 firebase deploy \
     -m "${GITHUB_SHA}" \
     --project ${FIREBASE_PROJECT} \
-    --only hosting
+    --only functions
