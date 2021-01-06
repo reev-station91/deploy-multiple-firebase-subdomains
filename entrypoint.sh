@@ -23,7 +23,9 @@ fi
 # Go to path with firebase configuration
 ls 
 
-cd $FIREBASE_PROJECT_PATH
+cd ./api/api-server
+
+# cd $FIREBASE_PROJECT_PATH
 
 firebase deploy \
     -m "${GITHUB_SHA}" \
