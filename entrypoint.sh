@@ -23,7 +23,9 @@ fi
 # Go to path with firebase configuration
 ls 
 
-cd ./api/api-server
+cd ./api/api-server 
+
+npm install &&
 
 # cd $FIREBASE_PROJECT_PATH
 
